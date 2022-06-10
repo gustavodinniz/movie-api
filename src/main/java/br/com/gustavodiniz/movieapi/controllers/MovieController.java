@@ -63,4 +63,11 @@ public class MovieController {
         log.info("Movie with id: {} has been updated successfully.", movieModel.getId());
         return ResponseEntity.ok().body(modelMapper.map(movieModel, MovieDTO.class));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<MovieDTO> delete(@PathVariable Long id) {
+        movieService.delete(id);
+        log.info("Movie with id: {} has been deleted successfully.", id);
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -15,4 +15,6 @@ public interface MovieService {
     MovieModel create(MovieDTO movieDTO);
 
     MovieModel update(MovieDTO movieDTO);
+
+    void delete(Long id);
 }

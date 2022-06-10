@@ -42,4 +42,10 @@ public class MovieServiceImpl implements MovieService {
     public MovieModel update(MovieDTO movieDTO) {
         return movieRepository.save(modelMapper.map(movieDTO, MovieModel.class));
     }
+
+    @Override
+    public void delete(Long id) {
+        findById(id);
+        movieRepository.deleteById(id);
+    }
 }
