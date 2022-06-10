@@ -13,4 +13,6 @@ public interface MovieService {
     MovieModel findById(Long id);
 
     MovieModel create(MovieDTO movieDTO);
+
+    MovieModel update(MovieDTO movieDTO);
 }

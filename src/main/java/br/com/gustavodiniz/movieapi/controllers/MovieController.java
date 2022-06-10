@@ -55,4 +55,12 @@ public class MovieController {
         log.info("New movie created successfully.");
         return ResponseEntity.created(uri).build();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<MovieDTO> update(@PathVariable Long id, @RequestBody @Valid MovieDTO movieDTO) {
+        movieDTO.setId(id);
+        MovieModel movieModel = movieService.update(movieDTO);
+        log.info("Movie with id: {} has been updated successfully.", movieModel.getId());
+        return ResponseEntity.ok().body(modelMapper.map(movieModel, MovieDTO.class));
+    }
 }

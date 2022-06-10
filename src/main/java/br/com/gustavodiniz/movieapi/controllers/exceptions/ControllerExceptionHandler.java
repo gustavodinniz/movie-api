@@ -1,7 +1,6 @@
 package br.com.gustavodiniz.movieapi.controllers.exceptions;
 
 import br.com.gustavodiniz.movieapi.services.exceptions.DataIntegrityViolationException;
-import br.com.gustavodiniz.movieapi.services.exceptions.JdbcSQLIntegrityConstraintViolationException;
 import br.com.gustavodiniz.movieapi.services.exceptions.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
