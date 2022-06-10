@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
 @Data
 @Entity
@@ -20,11 +19,8 @@ public class MovieModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "movie_genre",
-            joinColumns = @JoinColumn(name = "id"))
-    private Set<Long> genres;
+    private String title;
+    private String genre;
 
     @Column(columnDefinition = "text")
     private String overview;
@@ -32,8 +28,6 @@ public class MovieModel implements Serializable {
     private Double popularity;
 
     private String releaseDate;
-
-    private String title;
 
     private Double voteAverage;
 
