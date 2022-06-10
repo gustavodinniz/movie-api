@@ -12,11 +12,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.stream.Collectors;
 
 @Log4j2
@@ -45,5 +45,14 @@ public class MovieController {
         MovieModel movieModel = movieService.findById(id);
         log.info("Showing movie with id: {}.", id);
         return ResponseEntity.ok().body(modelMapper.map(movieModel, MovieDTO.class));
+    }
+
+    @PostMapping
+    public ResponseEntity<MovieDTO> create(@RequestBody @Valid MovieDTO movieDTO) {
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest().path("/{id}")
+                .buildAndExpand(movieService.create(movieDTO).getId()).toUri();
+        log.info("New movie created successfully.");
+        return ResponseEntity.created(uri).build();
     }
 }

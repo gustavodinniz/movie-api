@@ -12,10 +12,11 @@ import lombok.Setter;
 public class MovieDTO {
 
     private Long id;
+    private String title;
+    private String genre;
     private String overview;
     private Double popularity;
     private String releaseDate;
-    private String title;
     private Double voteAverage;
     private Long voteCount;
 }
