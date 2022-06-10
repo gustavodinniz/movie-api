@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .builder()
                 .username(userModel.getUsername())
                 .password(userModel.getPassword())
-                .roles("USER")
+                .roles("ADMIN")
                 .build();
     }
 }
