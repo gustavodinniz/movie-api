@@ -23,3 +23,10 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+security:
+  jwt:
+    signing-key: byBzb2wgbsOjbyDDqSBhenVs
+  oauth2:
+    client:
+      scope: password
