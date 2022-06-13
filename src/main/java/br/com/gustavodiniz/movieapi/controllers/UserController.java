@@ -67,4 +67,11 @@ public class UserController {
         log.info("Showing all users.");
         return ResponseEntity.ok().body(page);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<UserDTO> delete(@PathVariable Long id) {
+        userService.delete(id);
+        log.info("User with id: {} has been disabled successfully.", id);
+        return ResponseEntity.noContent().build();
+    }
 }

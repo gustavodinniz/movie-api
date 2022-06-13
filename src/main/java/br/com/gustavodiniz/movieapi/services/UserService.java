@@ -18,4 +18,6 @@ public interface UserService {
     UserDetails loadUserByUsername(String username);
 
     Page<UserModel> findAll(Pageable pageable);
+
+    void delete(Long id);
 }

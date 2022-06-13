@@ -14,7 +14,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -100,5 +99,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         Boolean activated = true;
         RoleModel roleModel = new RoleModel(2L, "ROLE_USER");
         return userRepository.findAllByActivatedAndRoles(pageable, activated, roleModel);
+    }
+
+    @Override
+    public void delete(Long id) {
+        UserModel userModel = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        userModel.setActivated(false);
+        userRepository.save(userModel);
     }
 }
