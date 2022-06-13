@@ -1,15 +1,19 @@
 package br.com.gustavodiniz.movieapi.configs;
 
 import br.com.gustavodiniz.movieapi.models.MovieModel;
+import br.com.gustavodiniz.movieapi.models.RoleModel;
 import br.com.gustavodiniz.movieapi.models.UserModel;
 import br.com.gustavodiniz.movieapi.repositories.MovieRepository;
+import br.com.gustavodiniz.movieapi.repositories.RoleRepository;
 import br.com.gustavodiniz.movieapi.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Configuration
 @Profile("local")
@@ -21,14 +25,27 @@ public class LocalConfig {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     @Bean
     public void startDB() {
 
-        UserModel userModel1 = new UserModel(null, "gustavodinniz", "123456");
-        UserModel userModel2 = new UserModel(null, "albertochaves", "123456");
-        UserModel userModel3 = new UserModel(null, "marisagomes", "123456");
-        UserModel userModel4 = new UserModel(null, "ericadiniz", "123456");
-        UserModel userModel5 = new UserModel(null, "marisadiniz", "123456");
+        RoleModel roleModel1 = new RoleModel(null, "ROLE_ADMIN");
+        RoleModel roleModel2 = new RoleModel(null, "ROLE_USER");
+        roleRepository.saveAll(List.of(roleModel1, roleModel2));
+
+        Set<RoleModel> roleAdmin = new HashSet<>();
+        roleAdmin.addAll(List.of(roleModel1, roleModel2));
+
+        Set<RoleModel> roleUser = new HashSet<>();
+        roleUser.add(roleModel2);
+
+        UserModel userModel1 = new UserModel(null, "gustavodinniz", "123456", roleAdmin);
+        UserModel userModel2 = new UserModel(null, "albertochaves", "123456", roleUser);
+        UserModel userModel3 = new UserModel(null, "marisagomes", "123456", roleUser);
+        UserModel userModel4 = new UserModel(null, "ericadiniz", "123456", roleUser);
+        UserModel userModel5 = new UserModel(null, "marisadiniz", "123456", roleUser);
 
         userRepository.saveAll(List.of(userModel1, userModel2, userModel3, userModel4, userModel5));
 

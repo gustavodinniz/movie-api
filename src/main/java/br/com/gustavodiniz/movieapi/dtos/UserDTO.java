@@ -1,5 +1,6 @@
 package br.com.gustavodiniz.movieapi.dtos;
 
+import br.com.gustavodiniz.movieapi.models.UserModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,11 +14,17 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 public class UserDTO {
 
-    private Integer id;
+    private Long id;
 
     @NotEmpty(message = "The login field is required.")
     private String username;
 
     @NotEmpty(message = "The password field is required.")
     private String password;
+
+    public UserDTO(UserModel entity) {
+        id = entity.getId();
+        username = entity.getUsername();
+        password = entity.getPassword();
+    }
 }
