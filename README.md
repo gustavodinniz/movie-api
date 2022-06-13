@@ -21,7 +21,7 @@ Os seguintes endpoints foram implementados:
 - `DELETE /movies/{id}` exclui um filme
 - `POST /users` insere um novo usuario(ROLE_USER)
 - `POST /users/admin` insere um novo usuario como admin(ROLE_ADMIN)
-- `DELETE /users` desativa um usuario
+- `DELETE /users/{id}` desativa um usuario
 - `POST /oauth/token` gera um novo token para utilizar na aplicacao
 
 A aplicação conta com autentição e token JWT, apenas os ENDPOINTS `/users` e `users/admin` estão liberados.
