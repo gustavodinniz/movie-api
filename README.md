@@ -24,6 +24,6 @@ Os seguintes endpoints foram implementados:
 - `DELETE /users/{id}` desativa um usuario
 - `POST /oauth/token` gera um novo token para utilizar na aplicacao
 
-A aplicação conta com autentição e token JWT, apenas os ENDPOINTS `/users` e `users/admin` estão liberados.
+A aplicação conta com autenticação e token JWT, apenas os ENDPOINTS `/users` e `users/admin` estão liberados.
 
 Collection no Postman utilizada para testes: https://www.getpostman.com/collections/d5dc2c3309d48b0aea65
