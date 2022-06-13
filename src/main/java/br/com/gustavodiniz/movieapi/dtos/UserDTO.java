@@ -23,8 +23,6 @@ public class UserDTO {
     @NotEmpty(message = "The password field is required.")
     private String password;
 
-    private RoleModel roles;
-
     public UserDTO(UserModel entity) {
         id = entity.getId();
         username = entity.getUsername();
