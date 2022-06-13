@@ -39,6 +39,8 @@ public class UserModel implements UserDetails, Serializable {
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     private Set<RoleModel> roles = new HashSet<>();
 
+    private Boolean activated;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getAuthority()))

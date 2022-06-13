@@ -36,16 +36,16 @@ public class LocalConfig {
         roleRepository.saveAll(List.of(roleModel1, roleModel2));
 
         Set<RoleModel> roleAdmin = new HashSet<>();
-        roleAdmin.addAll(List.of(roleModel1, roleModel2));
+        roleAdmin.add(roleModel1);
 
         Set<RoleModel> roleUser = new HashSet<>();
         roleUser.add(roleModel2);
 
-        UserModel userModel1 = new UserModel(null, "gustavodinniz", "123456", roleAdmin);
-        UserModel userModel2 = new UserModel(null, "albertochaves", "123456", roleUser);
-        UserModel userModel3 = new UserModel(null, "marisagomes", "123456", roleUser);
-        UserModel userModel4 = new UserModel(null, "ericadiniz", "123456", roleUser);
-        UserModel userModel5 = new UserModel(null, "marisadiniz", "123456", roleUser);
+        UserModel userModel1 = new UserModel(null, "gustavodinniz", "123456", roleAdmin, true);
+        UserModel userModel2 = new UserModel(null, "albertochaves", "123456", roleUser, true);
+        UserModel userModel3 = new UserModel(null, "marisagomes", "123456", roleUser, false);
+        UserModel userModel4 = new UserModel(null, "ericadiniz", "123456", roleUser, true);
+        UserModel userModel5 = new UserModel(null, "marisadiniz", "123456", roleUser, false);
 
         userRepository.saveAll(List.of(userModel1, userModel2, userModel3, userModel4, userModel5));
 

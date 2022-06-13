@@ -12,6 +12,8 @@ import br.com.gustavodiniz.movieapi.services.exceptions.UserAlreadyRegisteredExc
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -51,6 +53,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         UserModel userModel = modelMapper.map(userDTO, UserModel.class);
         userModel.setRoles(roleUser);
+        userModel.setActivated(true);
 
         return userRepository.save(userModel);
     }
@@ -68,6 +71,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         UserModel userModel = modelMapper.map(userDTO, UserModel.class);
         userModel.setRoles(roleUser);
+        userModel.setActivated(true);
 
         return userRepository.save(userModel);
     }
@@ -89,5 +93,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
         log.info("User found: " + username);
         return userModel;
+    }
+
+    @Override
+    public Page<UserModel> findAll(Pageable pageable) {
+        Boolean activated = true;
+        RoleModel roleModel = new RoleModel(2L, "ROLE_USER");
+        return userRepository.findAllByActivatedAndRoles(pageable, activated, roleModel);
     }
 }
