@@ -16,7 +16,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     private Environment env;
 
-    private static final String[] PUBLIC = {"/oauth/token", "/h2-console/**", "/users"};
+    private static final String[] PUBLIC = {"/oauth/token", "/h2-console/**", "/users/**"};
 
     @Override
     public void configure(HttpSecurity http) throws Exception {

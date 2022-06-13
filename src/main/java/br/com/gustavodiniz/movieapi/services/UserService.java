@@ -5,7 +5,9 @@ import br.com.gustavodiniz.movieapi.models.UserModel;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public interface UserService {
-    UserModel create(UserDTO userDTO);
+    UserModel createUser(UserDTO userDTO);
+
+    UserModel createAdmin(UserDTO userDTO);
 
     UserDTO findById(Long id);
 

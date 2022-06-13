@@ -1,5 +1,6 @@
 package br.com.gustavodiniz.movieapi.dtos;
 
+import br.com.gustavodiniz.movieapi.models.RoleModel;
 import br.com.gustavodiniz.movieapi.models.UserModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,8 @@ public class UserDTO {
 
     @NotEmpty(message = "The password field is required.")
     private String password;
+
+    private RoleModel roles;
 
     public UserDTO(UserModel entity) {
         id = entity.getId();

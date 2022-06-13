@@ -24,11 +24,23 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserDTO> create(@RequestBody @Valid UserDTO userDTO) {
+    public ResponseEntity<UserDTO> createUser(@RequestBody @Valid UserDTO userDTO) {
         try {
             URI uri = ServletUriComponentsBuilder
                     .fromCurrentRequest().path("/{id}")
-                    .buildAndExpand(userService.create(userDTO).getId()).toUri();
+                    .buildAndExpand(userService.createUser(userDTO).getId()).toUri();
+            return ResponseEntity.created(uri).build();
+        } catch (UserAlreadyRegisteredException exception) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage());
+        }
+    }
+
+    @PostMapping(value = "/admin")
+    public ResponseEntity<UserDTO> createAdmin(@RequestBody @Valid UserDTO userDTO) {
+        try {
+            URI uri = ServletUriComponentsBuilder
+                    .fromCurrentRequest().path("/{id}")
+                    .buildAndExpand(userService.createAdmin(userDTO).getId()).toUri();
             return ResponseEntity.created(uri).build();
         } catch (UserAlreadyRegisteredException exception) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage());

@@ -1,7 +1,9 @@
 package br.com.gustavodiniz.movieapi.services.impl;
 
 import br.com.gustavodiniz.movieapi.dtos.UserDTO;
+import br.com.gustavodiniz.movieapi.models.RoleModel;
 import br.com.gustavodiniz.movieapi.models.UserModel;
+import br.com.gustavodiniz.movieapi.repositories.RoleRepository;
 import br.com.gustavodiniz.movieapi.repositories.UserRepository;
 import br.com.gustavodiniz.movieapi.services.AuthService;
 import br.com.gustavodiniz.movieapi.services.UserService;
@@ -16,7 +18,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Log4j2
 @Service
@@ -26,18 +30,46 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private UserRepository userRepository;
 
     @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @Autowired
     private AuthService authService;
 
     @Override
-    public UserModel create(UserDTO userDTO) {
+    public UserModel createUser(UserDTO userDTO) {
         boolean exists = userRepository.existsByUsername(userDTO.getUsername());
         if (exists) {
             throw new UserAlreadyRegisteredException(userDTO.getUsername());
         }
-        return userRepository.save(modelMapper.map(userDTO, UserModel.class));
+
+        RoleModel roleModel = new RoleModel(2L, "ROLE_USER");
+        Set<RoleModel> roleUser = new HashSet<>();
+        roleUser.add(roleModel);
+
+        UserModel userModel = modelMapper.map(userDTO, UserModel.class);
+        userModel.setRoles(roleUser);
+
+        return userRepository.save(userModel);
+    }
+
+    @Override
+    public UserModel createAdmin(UserDTO userDTO) {
+        boolean exists = userRepository.existsByUsername(userDTO.getUsername());
+        if (exists) {
+            throw new UserAlreadyRegisteredException(userDTO.getUsername());
+        }
+
+        RoleModel roleModel = new RoleModel(1L, "ROLE_ADMIN");
+        Set<RoleModel> roleUser = new HashSet<>();
+        roleUser.add(roleModel);
+
+        UserModel userModel = modelMapper.map(userDTO, UserModel.class);
+        userModel.setRoles(roleUser);
+
+        return userRepository.save(userModel);
     }
 
     @Override
